@@ -2,6 +2,9 @@ import React from "react"
 import { View, StatusBar } from "react-native"
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper"
 import Constants from "expo-constants"
+import DeckList from "./components/DeckList"
+import { createAppContainer } from "react-navigation"
+import { createMaterialTopTabNavigator } from "react-navigation-tabs"
 
 const theme = {
   ...DefaultTheme,
@@ -27,6 +30,7 @@ export default function App() {
             barStyle="light-content"
           />
         </View>
+        
       </View>
     </PaperProvider>
   )
