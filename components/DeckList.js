@@ -5,7 +5,7 @@ class DeckList extends Component{
   render(){
     return (
       <View>
-        <Text>This is deck list.</Text>
+        <Text>This is deck list</Text>
       </View>
     )
   }
