@@ -1,19 +1,33 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from "react"
+import { View, StatusBar } from "react-native"
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper"
+import Constants from "expo-constants"
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#37474f",
+    accent: "#62727b"
+  }
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+    <PaperProvider theme={theme}>
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            backgroundColor: theme.colors.primary,
+            height: Constants.statusBarHeight
+          }} >
+          <StatusBar
+            translucent
+            backgroundColor={theme.colors.primary}
+            barStyle="light-content"
+          />
+        </View>
+      </View>
+    </PaperProvider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
