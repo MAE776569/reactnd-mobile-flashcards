@@ -1,10 +1,9 @@
 import React, { Component } from "react"
-import { FlatList, StyleSheet, Text, View } from "react-native"
-import { Divider, ActivityIndicator } from "react-native-paper"
+import { FlatList, StyleSheet, View } from "react-native"
+import { Divider, ActivityIndicator, Title } from "react-native-paper"
 import { connect } from "react-redux"
 import DeckItem from "./DeckItem"
-import { fetchDecks } from "../utils/helpers"
-import { receiveDecks } from "../actions/decks"
+import { handleReceiveDecks } from "../actions/decks"
 
 class DeckList extends Component {
   state = {
@@ -13,10 +12,7 @@ class DeckList extends Component {
 
   componentDidMount() {
     const { getDecks } = this.props
-    getDecks().then(() => {
-      this.setState({ loading: false })
-      console.log(this.props.decks)
-    })
+    getDecks(() => this.setState({ loading: false }))
   }
 
   render() {
@@ -34,7 +30,7 @@ class DeckList extends Component {
       <FlatList
         contentContainerStyle={!decks.length && styles.container}
         ItemSeparatorComponent={Divider}
-        ListEmptyComponent={<Text>No Decks!</Text>}
+        ListEmptyComponent={<Title>No Decks!</Title>}
         data={decks}
         renderItem={({ item }) => (
           <DeckItem
@@ -68,7 +64,7 @@ function mapStateToProps({ decks }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getDecks: () => fetchDecks().then(decks => dispatch(receiveDecks(decks)))
+    getDecks: (cb) => dispatch(handleReceiveDecks(cb))
   }
 }
 
