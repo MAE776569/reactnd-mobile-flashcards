@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { KeyboardAvoidingView, StyleSheet, Alert } from "react-native"
 import { Headline, TextInput, Button } from "react-native-paper"
 import { DeckTitleIsValid, getDeckKey } from "../utils/helpers"
+import { connect } from "react-redux"
+import { handleAddDeck } from "../actions/decks"
 
 class NewDeck extends Component {
   state = {
@@ -78,4 +80,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+function mapDispatchToProps(dispatch){
+  return {
+    addDeck: (deck) => dispatch(handleAddDeck(deck))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewDeck)
