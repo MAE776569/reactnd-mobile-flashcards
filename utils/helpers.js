@@ -2,6 +2,13 @@ import { AsyncStorage } from "react-native"
 
 const DECKS_KEY = "DECKS"
 
+export function DeckTitleIsValid(title){
+  return title.trim()
+    .replace(/[^\w\s]/gi, "")
+    .replace(/\s+/, " ")
+    .split(" ").length >= 4
+}
+
 export function getDeckKey(title) {
   return title
     .trim()
