@@ -13,15 +13,15 @@ class NewDeck extends Component {
 
   submitDeck = () => {
     const { deckTitle } = this.state
-    if (!DeckTitleIsValid(deckTitle)){
+
+    if (!DeckTitleIsValid(deckTitle)) {
       Alert.alert(
         "Enter Valid Title",
         "Please enter a valid title that at least consists of 4 characters"
       )
       this.deckTitleInput.focus()
     }
-      
-    else{
+    else {
       const newDeck = {
         [getDeckKey(deckTitle)]: {
           title: deckTitle,
@@ -30,8 +30,14 @@ class NewDeck extends Component {
       }
 
       this.setState({
-        deckTitle: "",
         loading: true
+      })
+
+      this.props.addDeck(newDeck).then(() => {
+        this.setState({
+          deckTitle: "",
+          loading: false
+        })
       })
     }
   }
@@ -48,7 +54,7 @@ class NewDeck extends Component {
           label="Deck title"
           value={this.state.deckTitle}
           onChangeText={deckTitle => this.setState({ deckTitle })}
-          ref={(input) => this.deckTitleInput = input}
+          ref={input => (this.deckTitleInput = input)}
         />
         <Button
           style={styles.submitBtn}
@@ -80,9 +86,9 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return {
-    addDeck: (deck) => dispatch(handleAddDeck(deck))
+    addDeck: deck => dispatch(handleAddDeck(deck))
   }
 }
 
