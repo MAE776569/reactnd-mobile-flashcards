@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { KeyboardAvoidingView, StyleSheet, Alert } from "react-native"
 import { Headline, TextInput, Button } from "react-native-paper"
-import { DeckTitleIsValid } from "../utils/helpers"
+import { DeckTitleIsValid, getDeckKey } from "../utils/helpers"
 
 class NewDeck extends Component {
   state = {
@@ -19,11 +19,19 @@ class NewDeck extends Component {
       this.deckTitleInput.focus()
     }
       
-    else
+    else{
+      const newDeck = {
+        [getDeckKey(deckTitle)]: {
+          title: deckTitle,
+          questions: []
+        }
+      }
+
       this.setState({
         deckTitle: "",
         loading: true
       })
+    }
   }
 
   render() {
