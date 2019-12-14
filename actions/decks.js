@@ -10,11 +10,10 @@ function receiveDecks(decks) {
   }
 }
 
-export function handleReceiveDecks(cb) {
+export function handleReceiveDecks() {
   return dispatch => {
     return fetchDecks()
       .then(decks => dispatch(receiveDecks(decks)))
-      .then(cb)
       .catch(error => console.log("Error fetching decks", error))
   }
 }

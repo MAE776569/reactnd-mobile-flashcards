@@ -12,7 +12,10 @@ class DeckList extends Component {
 
   componentDidMount() {
     const { getDecks } = this.props
-    getDecks(() => this.setState({ loading: false }))
+    getDecks()
+    .then(() =>{
+      this.setState({ loading: false })
+    })
   }
 
   render() {
@@ -64,7 +67,7 @@ function mapStateToProps({ decks }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getDecks: (cb) => dispatch(handleReceiveDecks(cb))
+    getDecks: () => dispatch(handleReceiveDecks())
   }
 }
 
