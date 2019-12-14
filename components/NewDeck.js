@@ -16,6 +16,7 @@ class NewDeck extends Component {
         "Enter Valid Title",
         "Please enter a valid title that at least consists of 4 characters"
       )
+      this.deckTitleInput.focus()
     }
       
     else
@@ -37,6 +38,7 @@ class NewDeck extends Component {
           label="Deck title"
           value={this.state.deckTitle}
           onChangeText={deckTitle => this.setState({ deckTitle })}
+          ref={(input) => this.deckTitleInput = input}
         />
         <Button
           style={styles.submitBtn}
