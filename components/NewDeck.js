@@ -1,6 +1,7 @@
 import React, { Component } from "react"
-import { KeyboardAvoidingView, StyleSheet } from "react-native"
+import { KeyboardAvoidingView, StyleSheet, Alert } from "react-native"
 import { Headline, TextInput, Button } from "react-native-paper"
+import { DeckTitleIsValid } from "../utils/helpers"
 
 class NewDeck extends Component {
   state = {
@@ -9,10 +10,19 @@ class NewDeck extends Component {
   }
 
   submitDeck = () => {
-    this.setState({
-      deckTitle: "",
-      loading: true
-    })
+    const { deckTitle } = this.state
+    if (!DeckTitleIsValid(deckTitle)){
+      Alert.alert(
+        "Enter Valid Title",
+        "Please enter a valid title that at least consists of 4 characters"
+      )
+    }
+      
+    else
+      this.setState({
+        deckTitle: "",
+        loading: true
+      })
   }
 
   render() {
@@ -32,7 +42,8 @@ class NewDeck extends Component {
           style={styles.submitBtn}
           mode="contained"
           loading={this.state.loading}
-          onPress={this.submitDeck}>
+          onPress={this.submitDeck}
+        >
           Submit
         </Button>
       </KeyboardAvoidingView>
