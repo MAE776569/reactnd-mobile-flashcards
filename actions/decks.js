@@ -1,4 +1,4 @@
-import { fetchDecks } from "../utils/helpers"
+import { fetchDecks, storeDeck } from "../utils/helpers"
 
 export const RECEIVE_DECKS = "RECEIVE_DECKS"
 export const ADD_DECK = "ADD_DECK"
@@ -18,9 +18,17 @@ export function handleReceiveDecks() {
   }
 }
 
-export function addDeck(deck) {
+function addDeck(deck) {
   return {
     type: ADD_DECK,
     deck
+  }
+}
+
+export function handleAddDeck(deck){
+  return dispatch => {
+    return storeDeck(deck)
+    .then(deck => dispatch(addDeck(deck)))
+    .catch(error => console.log("Error Adding deck", error))
   }
 }
