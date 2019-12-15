@@ -12,8 +12,7 @@ class DeckList extends Component {
 
   componentDidMount() {
     const { getDecks } = this.props
-    getDecks()
-    .then(() =>{
+    getDecks().then(() => {
       this.setState({ loading: false })
     })
   }
@@ -39,6 +38,11 @@ class DeckList extends Component {
           <DeckItem
             title={item.title}
             description={`${item.questions.length} cards`}
+            onPress={() =>
+              this.props.navigation.navigate("DeckDetails", {
+                deck: item
+              })
+            }
           />
         )}
         keyExtractor={item => item.id}

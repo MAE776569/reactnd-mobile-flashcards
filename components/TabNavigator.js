@@ -23,6 +23,9 @@ const TabNavigator = createMaterialTopTabNavigator(
       style: {
         backgroundColor: primary
       }
+    },
+    navigationOptions: {
+      header: null
     }
   }
 )
