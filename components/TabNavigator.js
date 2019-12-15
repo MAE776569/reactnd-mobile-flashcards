@@ -1,6 +1,5 @@
 import DeckList from "./DeckList"
 import NewDeck from "./NewDeck"
-import { createAppContainer } from "react-navigation"
 import { createMaterialTopTabNavigator } from "react-navigation-tabs"
 import { primary } from "../utils/colors"
 
@@ -28,4 +27,4 @@ const TabNavigator = createMaterialTopTabNavigator(
   }
 )
 
-export default createAppContainer(TabNavigator)
+export default TabNavigator

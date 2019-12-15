@@ -3,7 +3,7 @@ import { View, StatusBar } from "react-native"
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper"
 import Constants from "expo-constants"
 import { primary, accent } from "./utils/colors"
-import TabNavigator from "./components/TabNavigator"
+import StackNavigator from "./components/StackNavigator"
 import { Provider as StoreProvider } from "react-redux"
 import store from "./store"
 
@@ -32,7 +32,7 @@ export default function App() {
               barStyle="light-content"
             />
           </View>
-          <TabNavigator />
+          <StackNavigator />
         </View>
       </PaperProvider>
     </StoreProvider>

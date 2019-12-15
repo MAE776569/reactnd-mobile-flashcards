@@ -13,6 +13,7 @@ class NewDeck extends Component {
 
   submitDeck = () => {
     const { deckTitle } = this.state
+    const { addDeck, navigation } = this.props
 
     if (!DeckTitleIsValid(deckTitle)) {
       Alert.alert(
@@ -33,11 +34,13 @@ class NewDeck extends Component {
         loading: true
       })
 
-      this.props.addDeck(newDeck).then(() => {
+      addDeck(newDeck).then(() => {
         this.setState({
           deckTitle: "",
           loading: false
         })
+
+        navigation.navigate("Decks")
       })
     }
   }
