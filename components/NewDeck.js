@@ -23,11 +23,12 @@ class NewDeck extends Component {
       this.deckTitleInput.focus()
     }
     else {
+      const deck = {
+        title: deckTitle,
+        questions: []
+      }
       const newDeck = {
-        [getDeckKey(deckTitle)]: {
-          title: deckTitle,
-          questions: []
-        }
+        [getDeckKey(deckTitle)]: deck
       }
 
       this.setState({
@@ -40,7 +41,7 @@ class NewDeck extends Component {
           loading: false
         })
 
-        navigation.navigate("Decks")
+        navigation.navigate("DeckDetails", { deck })
       })
     }
   }
