@@ -60,13 +60,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps({ decks }) {
-  const deckList = Object.keys(decks).map(deck => ({
-    id: deck,
-    ...decks[deck]
-  }))
-  return {
-    decks: deckList
-  }
+  return { decks }
 }
 
 function mapDispatchToProps(dispatch) {

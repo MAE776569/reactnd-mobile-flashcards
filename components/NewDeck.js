@@ -23,19 +23,18 @@ class NewDeck extends Component {
       this.deckTitleInput.focus()
     }
     else {
-      const deck = {
-        title: deckTitle,
-        questions: []
-      }
       const newDeck = {
-        [getDeckKey(deckTitle)]: deck
+        [getDeckKey(deckTitle)]: {
+          title: deckTitle,
+          questions: []
+        }
       }
 
       this.setState({
         loading: true
       })
 
-      addDeck(newDeck).then(() => {
+      addDeck(newDeck).then((deck) => {
         this.setState({
           deckTitle: "",
           loading: false

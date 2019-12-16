@@ -25,10 +25,13 @@ function addDeck(deck) {
   }
 }
 
-export function handleAddDeck(deck){
+export function handleAddDeck(deck) {
   return dispatch => {
     return storeDeck(deck)
-    .then(deck => dispatch(addDeck(deck)))
-    .catch(error => console.log("Error Adding deck", error))
+      .then(deck => {
+        dispatch(addDeck(deck))
+        return deck
+      })
+      .catch(error => console.log("Error Adding deck", error))
   }
 }

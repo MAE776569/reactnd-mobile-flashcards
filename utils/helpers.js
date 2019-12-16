@@ -1,7 +1,5 @@
 import { AsyncStorage } from "react-native"
 
-const DECKS_KEY = "DECKS"
-
 export function DeckTitleIsValid(title) {
   return title
       .replace(/[^\w\s]/gi, "")
@@ -20,13 +18,21 @@ export function getDeckKey(title) {
 }
 
 export function fetchDecks() {
-  return AsyncStorage.getItem(DECKS_KEY).then(JSON.parse)
+  return AsyncStorage.getAllKeys().then(keys =>
+    AsyncStorage.multiGet(keys).then(pairs =>
+      pairs.length
+        ? pairs.map(([key, value]) =>
+            Object.assign(JSON.parse(value), { id: key })
+          )
+        : pairs
+    )
+  )
 }
 
 export function storeDeck(deck) {
-  return AsyncStorage.getItem(DECKS_KEY)
-    .then(JSON.parse)
-    .then(decks => Object.assign(decks ? decks : {}, deck))
-    .then(decks => AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify(decks)))
-    .then(() => deck)
+  const [key] = Object.keys(deck)
+  const [value] = Object.values(deck)
+  return AsyncStorage.setItem(key, JSON.stringify(value)).then(() =>
+    Object.assign(value, { id: key })
+  )
 }
