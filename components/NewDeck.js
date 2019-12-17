@@ -11,6 +11,12 @@ class NewDeck extends Component {
     loading: false
   }
 
+  componentDidMount(){
+    this.props.navigation.addListener("didFocus", () => {
+      this.deckTitleInput.focus()
+    })
+  }
+
   submitDeck = () => {
     const { deckTitle } = this.state
     const { addDeck, navigation } = this.props
