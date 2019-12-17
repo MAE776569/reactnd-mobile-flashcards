@@ -4,11 +4,19 @@ import { Button, Title, Caption } from "react-native-paper"
 import { red } from "../utils/colors"
 import { connect } from "react-redux"
 import { handleRemoveDeck } from "../actions/decks"
+import { HeaderBackButton } from "react-navigation-stack"
+import { white } from "../utils/colors"
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.deck.title
+      title: navigation.state.params.deck.title,
+      headerLeft: (
+        <HeaderBackButton
+          tintColor={white}
+          onPress={() => navigation.navigate("Decks")}
+        />
+      )
     }
   }
 
