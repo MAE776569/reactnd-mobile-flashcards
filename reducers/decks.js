@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, ADD_DECK } from "../actions/decks"
+import { RECEIVE_DECKS, ADD_DECK, REMOVE_DECK } from "../actions/decks"
 
 export default function decks(state = [], action) {
   switch (action.type) {
@@ -6,6 +6,8 @@ export default function decks(state = [], action) {
       return [...state, ...action.decks]
     case ADD_DECK:
       return state.concat(action.deck)
+    case REMOVE_DECK:
+      return state.filter(deck => deck.id != action.id)
     default:
       return state
   }
