@@ -2,12 +2,22 @@ import React, { Component } from "react"
 import { View, StyleSheet } from "react-native"
 import { Button, Title, Caption } from "react-native-paper"
 import { red } from "../utils/colors"
+import { connect } from "react-redux"
+import { handleRemoveDeck } from "../actions/decks"
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.state.params.deck.title
     }
+  }
+
+  deleteDeck = () => {
+    const { navigation, removeDeck } = this.props
+    const { id } = navigation.state.params.deck
+    removeDeck(id).then(() => {
+      navigation.navigate("Decks")
+    })
   }
 
   render() {
@@ -28,7 +38,12 @@ class DeckDetails extends Component {
           <Button mode="contained" style={[styles.button, styles.mb10]}>
             Start Quiz
           </Button>
-          <Button mode="text" style={styles.button} labelStyle={{ color: red }}>
+          <Button
+            mode="text"
+            style={styles.button}
+            labelStyle={{ color: red }}
+            onPress={this.deleteDeck}
+          >
             Delete Deck
           </Button>
         </View>
@@ -64,4 +79,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DeckDetails
+function mapDispatchToProps(dispatch) {
+  return {
+    removeDeck: id => dispatch(handleRemoveDeck(id))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(DeckDetails)
