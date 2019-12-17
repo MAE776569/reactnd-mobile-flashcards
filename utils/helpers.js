@@ -36,3 +36,7 @@ export function storeDeck(deck) {
     Object.assign(value, { id: key })
   )
 }
+
+export function deleteDeck(key){
+  return AsyncStorage.removeItem(key)
+}
