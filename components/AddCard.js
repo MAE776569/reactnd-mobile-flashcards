@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { KeyboardAvoidingView, StyleSheet, Alert } from "react-native"
 import { TextInput, Button } from "react-native-paper"
 import { cardTextIsValid } from "../utils/helpers"
+import { connect } from "react-redux"
 
 class AddCard extends Component {
   state = {
@@ -82,4 +83,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddCard
+export default connect()(AddCard)

@@ -43,7 +43,9 @@ class DeckDetails extends Component {
           <Button
             mode="outlined"
             style={[styles.button, styles.mb10]}
-            onPress={() => this.props.navigation.navigate("AddCard")}
+            onPress={() =>
+              this.props.navigation.navigate("AddCard", { deckId: deck.id })
+            }
           >
             Add Card
           </Button>
