@@ -86,10 +86,11 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     alignSelf: "center",
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingTop: 8,
     paddingBottom: 8,
-    fontSize: 20,
-    width: "50%"
+    fontSize: 25
   }
 })
 
