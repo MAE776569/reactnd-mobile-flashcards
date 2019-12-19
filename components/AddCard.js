@@ -1,12 +1,28 @@
 import React, { Component } from "react"
-import { KeyboardAvoidingView, StyleSheet } from "react-native"
+import { KeyboardAvoidingView, StyleSheet, Alert } from "react-native"
 import { TextInput, Button } from "react-native-paper"
+import { cardTextIsValid } from "../utils/helpers"
 
 class AddCard extends Component {
   state = {
     question: "",
     answer: "",
     loading: false
+  }
+
+  handleSubmit = () => {
+    const { question, answer } = this.state
+    if (!cardTextIsValid(question) || !cardTextIsValid(answer)) {
+      Alert.alert(
+        "Enter Valid Question and Answer",
+        "Please enter a valid question and answer that at least consists of 4 characters"
+      )
+    }
+    else{
+      this.setState({
+        loading: true
+      })
+    }
   }
 
   render() {
@@ -36,7 +52,12 @@ class AddCard extends Component {
             this.setState({ answer })
           }}
         />
-        <Button mode="contained" style={styles.submitBtn} loading={loading}>
+        <Button
+          mode="contained"
+          style={styles.submitBtn}
+          loading={loading}
+          onPress={this.handleSubmit}
+        >
           Submit
         </Button>
       </KeyboardAvoidingView>
