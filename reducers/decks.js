@@ -1,4 +1,5 @@
 import { RECEIVE_DECKS, ADD_DECK, REMOVE_DECK } from "../actions/decks"
+import { ADD_CARD } from "../actions/cards"
 
 export default function decks(state = [], action) {
   switch (action.type) {
@@ -8,6 +9,12 @@ export default function decks(state = [], action) {
       return state.concat(action.deck)
     case REMOVE_DECK:
       return state.filter(deck => deck.id != action.id)
+    case ADD_CARD:
+      return state.map(deck =>
+        deck.id === action.deckId
+          ? Object.assign(deck, { questions: [...deck.questions, action.card] })
+          : Object.assign(deck, {})
+      )
     default:
       return state
   }
