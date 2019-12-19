@@ -37,6 +37,10 @@ export function storeDeck(deck) {
   )
 }
 
-export function deleteDeck(key){
+export function deleteDeck(key) {
   return AsyncStorage.removeItem(key)
+}
+
+export function cardTextIsValid(text) {
+  return text.trim().length >= 4
 }
