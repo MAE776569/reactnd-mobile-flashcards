@@ -40,7 +40,11 @@ class DeckDetails extends Component {
           </Caption>
         </View>
         <View>
-          <Button mode="outlined" style={[styles.button, styles.mb10]}>
+          <Button
+            mode="outlined"
+            style={[styles.button, styles.mb10]}
+            onPress={() => this.props.navigation.navigate("AddCard")}
+          >
             Add Card
           </Button>
           <Button mode="contained" style={[styles.button, styles.mb10]}>
