@@ -1,10 +1,12 @@
 import { AsyncStorage } from "react-native"
 
 export function DeckTitleIsValid(title) {
-  return title
+  return (
+    title
       .replace(/[^\w\s]/gi, "")
       .replace(/\s+/, " ")
       .trim().length >= 4
+  )
 }
 
 export function getDeckKey(title) {
@@ -43,4 +45,13 @@ export function deleteDeck(key) {
 
 export function cardTextIsValid(text) {
   return text.trim().length >= 4
+}
+
+export function saveCard(deckId, card) {
+  return AsyncStorage.getItem(deckId).then(deck =>
+    AsyncStorage.mergeItem(
+      deckId,
+      JSON.stringify({ questions: [...deck.questions, card] })
+    )
+  )
 }
