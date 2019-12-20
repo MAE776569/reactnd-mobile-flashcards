@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, Alert } from "react-native"
 import { TextInput, Button } from "react-native-paper"
 import { cardTextIsValid } from "../utils/helpers"
 import { connect } from "react-redux"
+import { handleAddCard } from "../actions/cards"
 
 class AddCard extends Component {
   state = {
@@ -13,15 +14,36 @@ class AddCard extends Component {
 
   handleSubmit = () => {
     const { question, answer } = this.state
-    if (!cardTextIsValid(question) || !cardTextIsValid(answer)) {
+    const { saveCard, navigation } = this.props
+    const { deckId } = navigation.state.params
+
+    if (!cardTextIsValid(question)) {
       Alert.alert(
-        "Enter Valid Question and Answer",
-        "Please enter a valid question and answer that at least consists of 4 characters"
+        "Enter Valid Question",
+        "Please enter a valid question that at least consists of 4 characters"
       )
+      this.questionInput.focus()
+    }
+    else if(!cardTextIsValid(answer)){
+      Alert.alert(
+        "Enter Valid Answer",
+        "Please enter a valid answer that at least consists of 4 characters"
+      )
+      this.answerInput.focus()
     }
     else{
       this.setState({
         loading: true
+      })
+
+      saveCard(deckId, { question, answer })
+      .then(() => {
+        this.setState({
+          question: "",
+          answer: "",
+          loading: false
+        })
+        navigation.goBack()
       })
     }
   }
@@ -83,4 +105,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect()(AddCard)
+function mapDispatchToProps(dispatch){
+  return {
+    saveCard: (deckId, card) => dispatch(handleAddCard(deckId, card))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AddCard)
