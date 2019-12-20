@@ -48,7 +48,9 @@ export function cardTextIsValid(text) {
 }
 
 export function saveCard(deckId, card) {
-  return AsyncStorage.getItem(deckId).then(deck =>
+  return AsyncStorage.getItem(deckId)
+  .then(JSON.parse)
+  .then(deck =>
     AsyncStorage.mergeItem(
       deckId,
       JSON.stringify({ questions: [...deck.questions, card] })
