@@ -1,11 +1,10 @@
 import React, { Component } from "react"
 import { View, StyleSheet } from "react-native"
 import { Button, Title, Caption } from "react-native-paper"
-import { red } from "../utils/colors"
 import { connect } from "react-redux"
 import { handleRemoveDeck } from "../actions/decks"
 import { HeaderBackButton } from "react-navigation-stack"
-import { white } from "../utils/colors"
+import { white, red } from "../utils/colors"
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -58,7 +57,7 @@ class DeckDetails extends Component {
           <Button
             mode="text"
             style={styles.button}
-            labelStyle={{ color: red }}
+            color={red}
             onPress={this.deleteDeck}
           >
             Delete Deck

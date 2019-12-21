@@ -4,6 +4,7 @@ import TabNavigator from "./TabNavigator"
 import DeckDetails from "./DeckDetails"
 import { primary, white } from "../utils/colors"
 import AddCard from "./AddCard"
+import Quiz from "./Quiz"
 
 const StackNavigator = createStackNavigator({
   Home: {
@@ -17,6 +18,9 @@ const StackNavigator = createStackNavigator({
     navigationOptions: {
       title: "Add Card"
     }
+  },
+  Quiz: {
+    screen: Quiz
   }
 }, {
   defaultNavigationOptions: {
