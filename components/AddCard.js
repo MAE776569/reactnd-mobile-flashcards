@@ -15,7 +15,7 @@ class AddCard extends Component {
   handleSubmit = () => {
     const { question, answer } = this.state
     const { saveCard, navigation } = this.props
-    const { deckId } = navigation.state.params
+    const { deck } = navigation.state.params
 
     if (!cardTextIsValid(question)) {
       Alert.alert(
@@ -36,14 +36,14 @@ class AddCard extends Component {
         loading: true
       })
 
-      saveCard(deckId, { question, answer })
+      saveCard(deck.id, { question, answer })
       .then(() => {
         this.setState({
           question: "",
           answer: "",
           loading: false
         })
-        navigation.goBack()
+        navigation.navigate("DeckDetails", { deck })
       })
     }
   }

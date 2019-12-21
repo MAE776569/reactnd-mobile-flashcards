@@ -20,16 +20,19 @@ class DeckDetails extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps){
+    return nextProps.deck !== null && nextProps.deck !== undefined
+  }
+
   deleteDeck = () => {
-    const { navigation, removeDeck } = this.props
-    const { id } = navigation.state.params.deck
-    removeDeck(id).then(() => {
+    const { navigation, removeDeck, deck } = this.props
+    removeDeck(deck.id).then(() => {
       navigation.navigate("Decks")
     })
   }
 
   render() {
-    const { deck } = this.props.navigation.state.params
+    const { deck, navigation } = this.props
 
     return (
       <View style={styles.container}>
@@ -44,7 +47,7 @@ class DeckDetails extends Component {
             mode="outlined"
             style={[styles.button, styles.mb10]}
             onPress={() =>
-              this.props.navigation.navigate("AddCard", { deckId: deck.id })
+              navigation.navigate("AddCard", { deck })
             }
           >
             Add Card
@@ -93,10 +96,16 @@ const styles = StyleSheet.create({
   }
 })
 
+function mapStateToProps({ decks }, { navigation }){
+  const id = navigation.state.params.deck.id
+  const deck = decks.find(item => item.id === id)
+  return { deck }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     removeDeck: id => dispatch(handleRemoveDeck(id))
   }
 }
 
-export default connect(null, mapDispatchToProps)(DeckDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(DeckDetails)
