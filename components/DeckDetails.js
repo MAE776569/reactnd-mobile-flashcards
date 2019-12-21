@@ -19,7 +19,7 @@ class DeckDetails extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps){
+  shouldComponentUpdate(nextProps) {
     return nextProps.deck !== null && nextProps.deck !== undefined
   }
 
@@ -45,13 +45,15 @@ class DeckDetails extends Component {
           <Button
             mode="outlined"
             style={[styles.button, styles.mb10]}
-            onPress={() =>
-              navigation.navigate("AddCard", { deck })
-            }
+            onPress={() => navigation.navigate("AddCard", { deck })}
           >
             Add Card
           </Button>
-          <Button mode="contained" style={[styles.button, styles.mb10]}>
+          <Button
+            mode="contained"
+            style={[styles.button, styles.mb10]}
+            onPress={() => navigation.navigate("Quiz")}
+          >
             Start Quiz
           </Button>
           <Button
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps({ decks }, { navigation }){
+function mapStateToProps({ decks }, { navigation }) {
   const id = navigation.state.params.deck.id
   const deck = decks.find(item => item.id === id)
   return { deck }

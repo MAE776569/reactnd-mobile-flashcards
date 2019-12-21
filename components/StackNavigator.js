@@ -20,7 +20,10 @@ const StackNavigator = createStackNavigator({
     }
   },
   Quiz: {
-    screen: Quiz
+    screen: Quiz,
+    navigationOptions: {
+      title: "Quiz"
+    }
   }
 }, {
   defaultNavigationOptions: {
