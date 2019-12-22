@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, Animated } from "react-native"
 import { Title, Headline, Button } from "react-native-paper"
 import { correctGreen, incorrectRed, darkRed } from "../utils/colors"
 import { connect } from "react-redux"
@@ -8,7 +8,16 @@ class Quiz extends Component {
   state = {
     currentQuestion: 0,
     showAnswer: false,
-    totalCorrect: 0
+    totalCorrect: 0,
+    fade: new Animated.Value(0)
+  }
+
+  componentDidMount(){
+    const { questions } = this.props
+    const { showAnswer, fade } = this.state
+    if(questions.length && !showAnswer){
+      Animated.timing(fade, { toValue: 1, duration: 800 }).start()
+    }
   }
 
   render() {
@@ -23,21 +32,21 @@ class Quiz extends Component {
       )
     }
 
-    const { currentQuestion } = this.state
+    const { currentQuestion, fade } = this.state
 
     return (
       <View style={styles.container}>
         <Title style={styles.cardsCount}>
           {`${currentQuestion + 1}/${questions.length}`}
         </Title>
-        <View style={styles.mt20}>
+        <Animated.View style={[styles.mt20, { opacity: fade }]}>
           <Headline style={{ textAlign: "center" }}>
             {questions[currentQuestion].question}
           </Headline>
           <Button mode="text" color={darkRed} style={{ marginTop: 10 }}>
             Answer
           </Button>
-        </View>
+        </Animated.View>
         <View style={styles.btnGroup}>
           <Button mode="contained" color={correctGreen} style={styles.btn}>
             Correct
