@@ -17,17 +17,17 @@ class AddCard extends Component {
     const { saveCard, navigation } = this.props
     const { deck } = navigation.state.params
 
-    if (!cardTextIsValid(question)) {
+    if (!cardTextIsValid(question, 4)) {
       Alert.alert(
         "Enter Valid Question",
         "Please enter a valid question that at least consists of 4 characters"
       )
       this.questionInput.focus()
     }
-    else if(!cardTextIsValid(answer)){
+    else if(!cardTextIsValid(answer, 3)){
       Alert.alert(
         "Enter Valid Answer",
-        "Please enter a valid answer that at least consists of 4 characters"
+        "Please enter a valid answer that at least consists of 3 characters"
       )
       this.answerInput.focus()
     }

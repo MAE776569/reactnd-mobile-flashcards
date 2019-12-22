@@ -43,8 +43,8 @@ export function deleteDeck(key) {
   return AsyncStorage.removeItem(key)
 }
 
-export function cardTextIsValid(text) {
-  return text.trim().length >= 4
+export function cardTextIsValid(text, length) {
+  return text.trim().length >= length
 }
 
 export function saveCard(deckId, card) {

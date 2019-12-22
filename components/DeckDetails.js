@@ -44,14 +44,14 @@ class DeckDetails extends Component {
         <View>
           <Button
             mode="outlined"
-            style={[styles.button, styles.mb10]}
+            style={[styles.button, styles.mb20]}
             onPress={() => navigation.navigate("AddCard", { deck })}
           >
             Add Card
           </Button>
           <Button
             mode="contained"
-            style={[styles.button, styles.mb10]}
+            style={[styles.button, styles.mb20]}
             onPress={() => navigation.navigate("Quiz", { deckId: deck.id })}
           >
             Start Quiz
@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     fontSize: 25
   },
-  mb10: {
-    marginBottom: 10
+  mb20: {
+    marginBottom: 20
   },
   title: {
     fontSize: 30,
