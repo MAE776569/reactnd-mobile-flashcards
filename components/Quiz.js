@@ -6,6 +6,17 @@ import { connect } from "react-redux"
 
 class Quiz extends Component {
   render() {
+    const { questions } = this.props
+    if (!questions.length) {
+      return (
+        <View style={[styles.container, { justifyContent: "center" }]}>
+          <Headline>
+            Sorry, you can't take a quiz because there are no cards in the deck.
+          </Headline>
+        </View>
+      )
+    }
+
     return (
       <View style={styles.container}>
         <Title style={styles.cardsCount}>2/2</Title>
