@@ -5,6 +5,12 @@ import { correctGreen, incorrectRed, darkRed } from "../utils/colors"
 import { connect } from "react-redux"
 
 class Quiz extends Component {
+  state = {
+    currentQuestion: 0,
+    showAnswer: false,
+    totalCorrect: 0
+  }
+
   render() {
     const { questions } = this.props
     if (!questions.length) {
@@ -17,11 +23,17 @@ class Quiz extends Component {
       )
     }
 
+    const { currentQuestion } = this.state
+
     return (
       <View style={styles.container}>
-        <Title style={styles.cardsCount}>2/2</Title>
+        <Title style={styles.cardsCount}>
+          {`${currentQuestion + 1}/${questions.length}`}
+        </Title>
         <View style={styles.mt20}>
-          <Headline>Question</Headline>
+          <Headline style={{ textAlign: "center" }}>
+            {questions[currentQuestion].question}
+          </Headline>
           <Button mode="text" color={darkRed} style={{ marginTop: 10 }}>
             Answer
           </Button>
