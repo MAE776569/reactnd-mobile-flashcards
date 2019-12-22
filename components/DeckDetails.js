@@ -52,7 +52,7 @@ class DeckDetails extends Component {
           <Button
             mode="contained"
             style={[styles.button, styles.mb10]}
-            onPress={() => navigation.navigate("Quiz")}
+            onPress={() => navigation.navigate("Quiz", { deckId: deck.id })}
           >
             Start Quiz
           </Button>

@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, StyleSheet } from "react-native"
 import { Title, Headline, Button } from "react-native-paper"
 import { correctGreen, incorrectRed, darkRed } from "../utils/colors"
+import { connect } from "react-redux"
 
 class Quiz extends Component {
   render() {
@@ -56,4 +57,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Quiz
+function mapStateToProps({ decks }, { navigation }) {
+  const id = navigation.state.params.deckId
+  const deck = decks.find(deck => deck.id === id)
+  return {
+    questions: deck.questions
+  }
+}
+
+export default connect(mapStateToProps)(Quiz)
