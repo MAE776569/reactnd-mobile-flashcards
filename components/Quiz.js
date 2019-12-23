@@ -1,27 +1,20 @@
 import React, { Component } from "react"
 import { View, StyleSheet, Animated } from "react-native"
 import { Title, Headline, Button } from "react-native-paper"
-import { correctGreen, incorrectRed, darkRed } from "../utils/colors"
+import { correctGreen, incorrectRed } from "../utils/colors"
 import { connect } from "react-redux"
+import CardAnimation from "./CardAnimation"
 
 class Quiz extends Component {
   state = {
     currentQuestion: 0,
-    showAnswer: false,
     totalCorrect: 0,
     fade: new Animated.Value(0)
   }
 
-  componentDidMount(){
-    const { questions } = this.props
-    const { showAnswer, fade } = this.state
-    if(questions.length && !showAnswer){
-      Animated.timing(fade, { toValue: 1, duration: 800 }).start()
-    }
-  }
-
   render() {
     const { questions } = this.props
+
     if (!questions.length) {
       return (
         <View style={[styles.container, { justifyContent: "center" }]}>
@@ -32,21 +25,17 @@ class Quiz extends Component {
       )
     }
 
-    const { currentQuestion, fade } = this.state
+    const { currentQuestion } = this.state
 
     return (
       <View style={styles.container}>
         <Title style={styles.cardsCount}>
           {`${currentQuestion + 1}/${questions.length}`}
         </Title>
-        <Animated.View style={[styles.mt20, { opacity: fade }]}>
-          <Headline style={{ textAlign: "center" }}>
-            {questions[currentQuestion].question}
-          </Headline>
-          <Button mode="text" color={darkRed} style={{ marginTop: 10 }}>
-            Answer
-          </Button>
-        </Animated.View>
+        <CardAnimation
+          question={questions[currentQuestion].question}
+          answer={questions[currentQuestion].answer}
+        />
         <View style={styles.btnGroup}>
           <Button mode="contained" color={correctGreen} style={styles.btn}>
             Correct
