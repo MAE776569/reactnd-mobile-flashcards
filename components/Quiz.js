@@ -12,10 +12,14 @@ class Quiz extends Component {
     fade: new Animated.Value(0)
   }
 
-  render() {
-    const { questions } = this.props
+  componentDidMount() {
+    Animated.timing(this.state.fade, { toValue: 1, timing: 1000 }).start()
+  }
 
-    if (!questions.length) {
+  render() {
+    const { questions, questionsLength } = this.props
+
+    if (!questionsLength) {
       return (
         <View style={[styles.container, { justifyContent: "center" }]}>
           <Headline>
@@ -25,17 +29,21 @@ class Quiz extends Component {
       )
     }
 
-    const { currentQuestion } = this.state
+    const { currentQuestion, fade } = this.state
 
     return (
       <View style={styles.container}>
         <Title style={styles.cardsCount}>
-          {`${currentQuestion + 1}/${questions.length}`}
+          {`${currentQuestion + 1}/${questionsLength}`}
         </Title>
-        <CardAnimation
-          question={questions[currentQuestion].question}
-          answer={questions[currentQuestion].answer}
-        />
+        <Animated.View
+          style={{ opacity: fade, flex: 1, alignItems: "flex-start" }}
+        >
+          <CardAnimation
+            question={questions[currentQuestion].question}
+            answer={questions[currentQuestion].answer}
+          />
+        </Animated.View>
         <View style={styles.btnGroup}>
           <Button mode="contained" color={correctGreen} style={styles.btn}>
             Correct
@@ -82,7 +90,8 @@ function mapStateToProps({ decks }, { navigation }) {
   const id = navigation.state.params.deckId
   const deck = decks.find(deck => deck.id === id)
   return {
-    questions: deck.questions
+    questions: deck.questions,
+    questionsLength: deck.questions.length
   }
 }
 
