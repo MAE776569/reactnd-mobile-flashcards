@@ -16,6 +16,18 @@ class Quiz extends Component {
     Animated.timing(this.state.fade, { toValue: 1, timing: 1000 }).start()
   }
 
+  handleAnswer = (answer) => {
+    const { questionsLength } = this.props
+    const { currentQuestion, totalCorrect, fade } = this.state
+    if (currentQuestion + 1 < questionsLength) {
+      fade.setValue(0)
+      this.setState((currentState) => ({
+        currentQuestion: currentState.currentQuestion + 1
+      }))
+      Animated.timing(fade, { toValue: 1, timing: 1000 }).start()
+    }
+  }
+
   render() {
     const { questions, questionsLength } = this.props
 
@@ -45,13 +57,19 @@ class Quiz extends Component {
           />
         </Animated.View>
         <View style={styles.btnGroup}>
-          <Button mode="contained" color={correctGreen} style={styles.btn}>
+          <Button
+            mode="contained"
+            color={correctGreen}
+            style={styles.btn}
+            onPress={() => this.handleAnswer(true)}
+          >
             Correct
           </Button>
           <Button
             mode="contained"
             color={incorrectRed}
             style={[styles.mt20, styles.btn]}
+            onPress={() => this.handleAnswer(false)}
           >
             Incorrect
           </Button>
