@@ -49,11 +49,22 @@ export function cardTextIsValid(text, length) {
 
 export function saveCard(deckId, card) {
   return AsyncStorage.getItem(deckId)
-  .then(JSON.parse)
-  .then(deck =>
-    AsyncStorage.mergeItem(
-      deckId,
-      JSON.stringify({ questions: [...deck.questions, card] })
+    .then(JSON.parse)
+    .then(deck =>
+      AsyncStorage.mergeItem(
+        deckId,
+        JSON.stringify({ questions: [...deck.questions, card] })
+      )
     )
+}
+
+const correctOptions = ["yes", "true", "correct", "right"]
+const incorrectOptions = ["no", "false", "incorrect", "wrong"]
+
+export function answerIsCorrect(questionAnswer, userChoice) {
+  const cleanAnswer = questionAnswer.trim().toLowerCase()
+  return (
+    (correctOptions.includes(cleanAnswer) && userChoice) ||
+    (incorrectOptions.includes(cleanAnswer) && !userChoice)
   )
 }
