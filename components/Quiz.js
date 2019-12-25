@@ -4,12 +4,14 @@ import { Title, Headline, Button } from "react-native-paper"
 import { correctGreen, incorrectRed } from "../utils/colors"
 import { connect } from "react-redux"
 import CardAnimation from "./CardAnimation"
+import ScoreView from "./ScoreView"
 
 class Quiz extends Component {
   state = {
     currentQuestion: 0,
     totalCorrect: 0,
-    fade: new Animated.Value(0)
+    fade: new Animated.Value(0),
+    showScore: false
   }
 
   componentDidMount() {
@@ -18,13 +20,16 @@ class Quiz extends Component {
 
   handleAnswer = (answer) => {
     const { questionsLength } = this.props
-    const { currentQuestion, totalCorrect, fade } = this.state
+    const { currentQuestion, fade } = this.state
     if (currentQuestion + 1 < questionsLength) {
       fade.setValue(0)
       this.setState((currentState) => ({
         currentQuestion: currentState.currentQuestion + 1
       }))
       Animated.timing(fade, { toValue: 1, timing: 1000 }).start()
+    }
+    else {
+      this.setState({ showScore: true })
     }
   }
 
@@ -41,7 +46,11 @@ class Quiz extends Component {
       )
     }
 
-    const { currentQuestion, fade } = this.state
+    const { currentQuestion, fade, showScore, totalCorrect } = this.state
+
+    if (showScore) {
+      return <ScoreView correct={totalCorrect} total={questionsLength} />
+    }
 
     return (
       <View style={styles.container}>
