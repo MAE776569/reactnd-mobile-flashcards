@@ -5,6 +5,7 @@ import { correctGreen, incorrectRed } from "../utils/colors"
 import { connect } from "react-redux"
 import CardAnimation from "./CardAnimation"
 import ScoreView from "./ScoreView"
+import { answerIsCorrect } from "../utils/helpers"
 
 class Quiz extends Component {
   state = {
@@ -18,9 +19,17 @@ class Quiz extends Component {
     Animated.timing(this.state.fade, { toValue: 1, timing: 1000 }).start()
   }
 
-  handleAnswer = (answer) => {
-    const { questionsLength } = this.props
+  handleAnswer = (userAnswer) => {
+    const { questions, questionsLength } = this.props
     const { currentQuestion, fade } = this.state
+    const questionAnswer = questions[currentQuestion].answer
+
+    if (answerIsCorrect(questionAnswer, userAnswer)) {
+      this.setState((currentState) => ({
+        totalCorrect: currentState.totalCorrect + 1
+      }))
+    }
+
     if (currentQuestion + 1 < questionsLength) {
       fade.setValue(0)
       this.setState((currentState) => ({
