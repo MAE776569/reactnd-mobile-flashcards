@@ -6,14 +6,19 @@ function DeckItem(props) {
   return (
     <List.Item
       {...props}
-      titleStyle={styles.textCenter}
-      descriptionStyle={styles.textCenter}
+      titleStyle={styles.title}
+      descriptionStyle={styles.cards}
     />
   )
 }
 
 const styles = StyleSheet.create({
-  textCenter: {
+  title: {
+    fontSize: 20,
+    textAlign: "center"
+  },
+  cards: {
+    fontSize: 16,
     textAlign: "center"
   }
 })
