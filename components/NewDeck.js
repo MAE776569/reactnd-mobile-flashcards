@@ -54,11 +54,11 @@ class NewDeck extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <Headline style={{ marginBottom: 12, textAlign: "center" }}>
+        <Headline style={{ marginBottom: 25, textAlign: "center" }}>
           What is the title of your new deck?
         </Headline>
         <TextInput
-          style={{ marginBottom: 12 }}
+          style={{ marginBottom: 25 }}
           mode="outlined"
           label="Deck title"
           value={this.state.deckTitle}
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 8,
     paddingBottom: 8,
-    fontSize: 25
+    fontSize: 25,
+    width: "60%"
   }
 })
 

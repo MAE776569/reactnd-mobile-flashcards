@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Animated } from "react-native"
-import { Headline, Title } from "react-native-paper"
+import { Headline, Title, Subheading } from "react-native-paper"
 
 class ScoreView extends Component {
   state = {
@@ -28,7 +28,12 @@ class ScoreView extends Component {
         }}
       >
         <Headline>Your Score</Headline>
-        <Title>{`${correct}/${total}`}</Title>
+        <Title style={{ marginBottom: 30 }}>{`${correct}/${total}`}</Title>
+        <Subheading>
+          {correct === total
+            ? "Great job, what about starting a new quiz"
+            : "Keep practicing, practice makes perfect"}
+        </Subheading>
       </Animated.View>
     )
   }

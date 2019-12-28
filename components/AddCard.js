@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 8,
     paddingBottom: 8,
-    fontSize: 25
+    fontSize: 25,
+    width: "60%"
   }
 })
 

@@ -44,7 +44,7 @@ class DeckDetails extends Component {
         <View>
           <Button
             mode="outlined"
-            style={[styles.button, styles.mb20]}
+            style={[styles.button, styles.mb20, { borderColor: "black" }]}
             onPress={() => navigation.navigate("AddCard", { deck })}
           >
             Add Card
